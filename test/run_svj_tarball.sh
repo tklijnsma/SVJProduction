@@ -50,7 +50,5 @@ for PDGID in ${PDGIDS[@]}; do
 	sed -i 's/'"${IDS[0]}"'/'"${IDS[1]}"'/g' cmsgrid_final.lhe
 done
 
-if [[ "$SAVELHE" == "YES" ]]; then
-    echo "Copying cmsgrid_final.lhe to ${CMSSW_BASE}/src"
-    cp cmsgrid_final.lhe $CMSSW_BASE/src/
-fi
+echo "Copying cmsgrid_final.lhe to ${CMSSW_BASE}/src"
+cp cmsgrid_final.lhe $CMSSW_BASE/src/
