@@ -2,6 +2,9 @@
 
 $CMSSW_RELEASE_BASE/src/GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh "$@"
 
+echo "Copying unmodified cmsgrid_final.lhe to ${CMSSW_BASE}/src"
+cp cmsgrid_final.lhe $CMSSW_BASE/src/cmsgrid_final_unmodified.lhe
+
 # convert madgraph ids to pythia ids
 # (also convert a unicode character)
 PDGIDS=(
@@ -47,8 +50,8 @@ PDGIDS=(
 for PDGID in ${PDGIDS[@]}; do
 	IDS=()
 	IFS="," read -a IDS <<< "$PDGID"
-	sed -i 's/'"${IDS[0]}"'/'"${IDS[1]}"'/g' cmsgrid_final.lhe
+	sed -i -e 's/'[\s\t\n]"${IDS[0]}"[\s\t\n]'/'[\s\t\n]"${IDS[1]}"[\s\t\n]'/g' cmsgrid_final.lhe
 done
 
-echo "Copying cmsgrid_final.lhe to ${CMSSW_BASE}/src"
+echo "Copying modified cmsgrid_final.lhe to ${CMSSW_BASE}/src"
 cp cmsgrid_final.lhe $CMSSW_BASE/src/
